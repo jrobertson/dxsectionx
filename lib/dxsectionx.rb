@@ -61,4 +61,3 @@ class DxSectionX
   end
 
 end
-
