@@ -26,7 +26,7 @@ class DxSectionX
 
       s = "=%s\n%s\n=" % [x.text.lines.first[/#\w+$/], x.text.unescape]
 
-      html = Martile.new(s, ignore_domainlabel: domain).to_html
+      html = Martile.new(s, ignore_domainlabel: @domain).to_html
 
       e = x.parent
       e.attributes.merge x.attributes
