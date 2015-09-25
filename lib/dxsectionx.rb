@@ -20,7 +20,7 @@ class DxSectionX
     
   end
 
-  def to_xml
+  def to_doc
 
     @doc.root.xpath('records/section/x') do |x|
 
@@ -61,3 +61,4 @@ class DxSectionX
   end
 
 end
+
