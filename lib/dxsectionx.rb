@@ -11,16 +11,29 @@ class DxSectionX
   attr_writer :xsl_url, :domain
 
 
-  def initialize(filepath, domain: nil)
-  
-    dx = Dynarex.new
-    dx.import filepath
-    @doc = dx.to_doc
-    @domain = domain
+  def initialize(x, domain: nil, xsl_url: nil)
+
+    @domain, @xsl_url = domain, xsl_url
     
+    if x.is_a? Rexle then
+      @doc = x
+      transform()
+    else
+      
+      dx = Dynarex.new
+      dx.import x
+      @doc = dx.to_doc
+      transform()
+
+    end
+
   end
 
-  def to_doc
+  def to_doc()
+    @doc
+  end
+  
+  def transform
 
     @doc.root.xpath('records/section/x') do |x|
 
@@ -55,10 +68,9 @@ class DxSectionX
       ]
 
     end
-
+    
     return @doc
 
   end
 
 end
-
