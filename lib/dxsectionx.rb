@@ -37,10 +37,10 @@ class DxSectionX
 
     @doc.root.xpath('records/section/x') do |x|
 
-      s = "=%s\n%s\n=" % [x.text.lines.first[/#\w+$/], x.text.unescape]
+      s = "=%s\n%s\n=" % [x.text.lines.first[/#\w+$/], x.text]
 
       html = Martile.new(s, ignore_domainlabel: @domain).to_html
-
+# 
       e = x.parent
       e.attributes.merge x.attributes
       x.delete
