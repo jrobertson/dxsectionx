@@ -37,7 +37,7 @@ class DxSectionX
 
     @doc.root.xpath('records/section/x') do |x|
 
-      s = "=%s\n%s\n=" % [x.text.lines.first[/#\w+$/], x.text]
+      s = "=%s\n%s\n=" % [x.text.lines.first[/#\w+$/], x.text.unescape]
 
       html = Martile.new(s, ignore_domainlabel: @domain).to_html
 # 
@@ -45,7 +45,7 @@ class DxSectionX
       e.attributes.merge x.attributes
       x.delete
       doc2 = Rexle.new(html)
-      
+
       h1 = doc2.root.element('h1')
       details = Rexle::Element.new('details')
       details.attributes[:open] = 'open'
@@ -55,9 +55,9 @@ class DxSectionX
       details.add summary
       doc2.root.xpath('.').each {|x| details.add x }     
       doc2.root.add details
-      doc2.root.elements.each do |e2|
-        e.add e2
-      end
+      
+      doc2.root.elements.each {|e2|  e.add e2 }
+
     end
 
     if @xsl_url then
