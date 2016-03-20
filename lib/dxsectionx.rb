@@ -40,7 +40,7 @@ class DxSectionX
       s = "=%s\n%s\n=" % [x.text.lines.first[/#\w+$/], x.text.unescape]
 
       html = Martile.new(s, ignore_domainlabel: @domain).to_html
-# 
+
       e = x.parent
       e.attributes.merge x.attributes
       x.delete
@@ -53,7 +53,7 @@ class DxSectionX
       summary.add h1
 
       details.add summary
-      doc2.root.xpath('.').each {|x| details.add x }     
+      doc2.root.xpath('*').each {|x| details.add x }     
       doc2.root.add details
       
       doc2.root.elements.each {|e2|  e.add e2 }
