@@ -4,6 +4,7 @@
 
 require 'dynarex'
 require 'martile'
+require 'kramdown'
 
 
 class DxSectionX
@@ -11,9 +12,9 @@ class DxSectionX
   attr_writer :xsl_url, :domain
 
 
-  def initialize(x, domain: nil, xsl_url: nil)
+  def initialize(x, domain: nil, xsl_url: nil, debug: false)
 
-    @domain, @xsl_url = domain, xsl_url
+    @domain, @xsl_url, @debug = domain, xsl_url, debug
     
     if x.is_a? Rexle then
       @doc = x
@@ -36,11 +37,14 @@ class DxSectionX
   def transform
 
     @doc.root.xpath('records/section/x') do |x|
-
+ 
       s = "=%s\n%s\n=" % [x.text.lines.first[/#\w+$/], x.text.unescape]
 
-      html = Martile.new(s, ignore_domainlabel: @domain).to_html
-
+      html = Kramdown::Document\
+          .new(Martile.new(s, ignore_domainlabel: @domain).to_s).to_html
+      
+      puts 'html: ' + html.inspect if @debug
+      
       e = x.parent
       e.attributes.merge x.attributes
       x.delete

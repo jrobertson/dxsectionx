@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'dxsectionx'
-  s.version = '0.2.0'
+  s.version = '0.2.1'
   s.summary = 'Transforms entries containing Markdown within a Dynarex document into HTML using the Martile gem'
   s.authors = ['James Robertson']
   s.files = Dir['lib/dxsectionx.rb']
@@ -9,6 +9,6 @@ Gem::Specification.new do |s|
   s.signing_key = '../privatekeys/dxsectionx.pem'
   s.cert_chain  = ['gem-public_cert.pem']
   s.license = 'MIT'
-  s.email = 'james@r0bertson.co.uk'
+  s.email = 'james@jamesrobertson.eu'
   s.homepage = 'https://github.com/jrobertson/dxsectionx'
 end
