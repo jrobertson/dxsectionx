@@ -9,6 +9,7 @@ require 'kramdown'
 
 class DxSectionX
 
+  attr_reader :dx
   attr_writer :xsl_url, :domain
 
 
@@ -21,9 +22,10 @@ class DxSectionX
       transform()
     else
       
-      dx = Dynarex.new
-      dx.import x
-      @doc = dx.to_doc
+      @dx = Dynarex.new
+      @dx.import x
+      puts '@dx.to_s : ' + @dx.to_s if @debug
+      @doc = @dx.to_doc
       transform()
 
     end
@@ -34,9 +36,13 @@ class DxSectionX
     @doc
   end
   
+  def to_s()
+    @dx.to_s
+  end
+  
   def transform
 
-    @doc.root.xpath('records/section/x') do |x|
+    @doc.clone.root.xpath('records/section/x') do |x|
  
       s = "=%s\n%s\n=" % [x.text.lines.first[/#\w+$/], x.text.unescape]
 
