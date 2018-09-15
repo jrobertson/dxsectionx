@@ -25,11 +25,15 @@ class DxSectionX
       @dx = Dynarex.new
       @dx.import x
       puts '@dx.to_s : ' + @dx.to_s if @debug
-      @doc = @dx.to_doc
+
       transform()
 
     end
 
+  end
+  
+  def create(h)
+    @dx.create h
   end
 
   def to_doc()
@@ -41,8 +45,10 @@ class DxSectionX
   end
   
   def transform
-
-    @doc.clone.root.xpath('records/section/x') do |x|
+    
+    doc = @dx.doc.clone
+    
+    doc.root.xpath('records/section/x') do |x|
  
       s = "=%s\n%s\n=" % [x.text.lines.first[/#\w+$/], x.text.unescape]
 
@@ -69,6 +75,7 @@ class DxSectionX
       doc2.root.elements.each {|e2|  e.add e2 }
 
     end
+    @doc = doc
 
     if @xsl_url then
 
