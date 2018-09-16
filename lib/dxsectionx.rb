@@ -37,6 +37,7 @@ class DxSectionX
   end
 
   def to_doc()
+    transform()
     @doc
   end
   
