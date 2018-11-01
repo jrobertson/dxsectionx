@@ -13,7 +13,7 @@ class DxSectionX
   attr_writer :xsl_url, :domain
 
 
-  def initialize(x, domain: nil, xsl_url: nil, debug: false)
+  def initialize(x, domain: nil, xsl_url: nil, debug: false, autosave: false)
 
     @domain, @xsl_url, @debug = domain, xsl_url, debug
     
@@ -22,7 +22,7 @@ class DxSectionX
       transform()
     else
       
-      @dx = Dynarex.new
+      @dx = Dynarex.new autosave: autosave, debug: debug
       @dx.import x
       puts '@dx.to_s : ' + @dx.to_s if @debug
 
@@ -33,7 +33,13 @@ class DxSectionX
   end
   
   def create(h)
+    puts 'inside dxsection#create' if @debug
     @dx.create h
+  end
+  
+  def save(filename)
+    puts 'inside dxsection save ' + filename.inspect if @debug
+    @dx.save filename
   end
 
   def to_doc()
