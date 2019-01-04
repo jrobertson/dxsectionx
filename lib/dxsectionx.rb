@@ -13,7 +13,8 @@ class DxSectionX
   attr_writer :xsl_url, :domain
 
 
-  def initialize(x, domain: nil, xsl_url: nil, debug: false, autosave: false)
+  def initialize(x, domain: nil, xsl_url: nil, debug: false, 
+                 autosave: false, order: :ascending)
 
     @domain, @xsl_url, @debug = domain, xsl_url, debug
     
@@ -22,7 +23,7 @@ class DxSectionX
       transform()
     else
       
-      @dx = Dynarex.new autosave: autosave, debug: debug
+      @dx = Dynarex.new autosave: autosave, debug: debug, order: order
       @dx.import x
       puts '@dx.to_s : ' + @dx.to_s if @debug
 
