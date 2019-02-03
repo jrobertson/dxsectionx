@@ -8,6 +8,7 @@ require 'kramdown'
 
 
 class DxSectionX
+  using ColouredText
 
   attr_reader :dx
   attr_writer :xsl_url, :domain
@@ -59,7 +60,8 @@ class DxSectionX
     doc.root.xpath('records/section/x') do |x|
  
       s = "=%s\n%s\n=" % [x.text.lines.first[/#\w+$/], x.text.unescape]
-
+      puts ('s: ' + s.inspect).debug if @debug
+      
       html = Kramdown::Document\
           .new(Martile.new(s, ignore_domainlabel: @domain).to_s).to_html
       

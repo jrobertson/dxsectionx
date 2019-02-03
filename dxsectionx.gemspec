@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'dxsectionx'
-  s.version = '0.3.0'
+  s.version = '0.3.1'
   s.summary = 'Transforms entries containing Markdown within a Dynarex ' + 
       'document into HTML using the Martile gem.'
   s.authors = ['James Robertson']
