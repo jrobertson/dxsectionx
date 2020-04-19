@@ -24,8 +24,8 @@ class DxSectionX
       transform()
     else
       
-      @dx = Dynarex.new autosave: autosave, debug: debug, order: order
-      @dx.import x
+      @dx = Dynarex.new x, autosave: autosave, debug: debug, order: order
+      #jr19-04-2020 @dx.import x
       puts '@dx.to_s : ' + @dx.to_s if @debug
 
       transform()
@@ -47,6 +47,10 @@ class DxSectionX
   def to_doc()
     transform()
     @doc
+  end
+  
+  def to_dx()
+    @dx.clone
   end
   
   def to_s()
